@@ -1,5 +1,17 @@
 # For storing data files
 .data/
+data/
+
+# Notebook backups
+*_backup_*.ipynb
+
+# Model files (large)
+*.keras
+*.h5
+*.pb
+
+# Training artifacts (optional - keep if you want to track these)
+# artifacts/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
