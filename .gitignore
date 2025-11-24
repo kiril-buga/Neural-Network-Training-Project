@@ -1,6 +1,7 @@
 # For storing data files
 .data/
 data/
+1D_CNN_Multilabel_V2/checkpoints/
 
 .claude/
 
