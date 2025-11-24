@@ -2,6 +2,8 @@
 .data/
 data/
 
+.claude/
+
 # Notebook backups
 *_backup_*.ipynb
 
