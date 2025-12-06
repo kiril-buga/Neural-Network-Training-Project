@@ -127,6 +127,21 @@ Multiple approaches tested across iterations:
 
 ## 4. Experimental Results
 
+### Results Summary
+
+| Feature / Metric | Iteration 1 (Baseline) | Iteration 2 (SMOTE) | Iteration 3 (Focal Loss) |
+|-----------------|----------------------|---------------------|------------------------|
+| Strategy | Baseline 1D CNN, No balancing | SMOTE (Synthetic Data) + Custom Thresholds | Focal Loss + Custom Thresholds |
+| Macro F1-Score | 0.8001 | 0.1494 | 0.8599 |
+| Exact Match Accuracy | 95.06% | 40.20% | 95.97% |
+| Hamming Loss | 0.0187 | 0.1376 | 0.0153 |
+| Healthy Class F1 | 0.9745 | 0.6015 | 0.9786 |
+| Kawasaki Recall | 38.24% | 0.00% | 57.14% |
+| Myocarditis Recall | 77.48% | 0.00% | 86.99% |
+| Cardiomyopathy Recall | 90.74% | 0.00% | 96.23% |
+
+---
+
 ### Iteration 1: Baseline Model
 
 **Configuration**:
@@ -384,7 +399,7 @@ If you use this project in your research, please cite:
 
 ```bibtex
 @software{ecg_multilabel_classification,
-  author = {Kiril Buga},
+  author = {Chiara Kühne, Kiril Buga, Yannick Schmid},
   title = {ECG Multi-Label Classification for Pediatric Heart Disease Detection},
   year = {2025},
   url = {https://github.com/kiril-buga/Neural-Network-Training-Project}
