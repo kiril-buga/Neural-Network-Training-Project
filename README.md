@@ -6,6 +6,50 @@ A deep learning project for automated detection of pediatric heart diseases from
 
 ---
 
+## Quickstart Guide
+
+### Option 1: Train with Pre-processed Data (Recommended)
+
+The preprocessed dataset is already available on Hugging Face. **Skip preprocessing** and go directly to training:
+
+1. Open [Y_1d_CNN_5_Labels_v03.ipynb](1D_CNN_Multilabel_V3/Y_1d_CNN_5_Labels_v03.ipynb) in Google Colab
+2. Verify the data source configuration matches:
+   ```python
+   HF_DATASET_REPO = "kiril-buga/ECG-database"
+   DATA_DIR_NAME = "multilabel_v2"
+   ```
+3. Run all cells to train the model with focal loss
+
+The notebook automatically downloads the preprocessed data (~1.5GB) from:
+`https://huggingface.co/datasets/kiril-buga/ECG-database/tree/main/multilabel_v2`
+
+### Option 2: Full Pipeline (Advanced)
+
+> **Warning**: Data preprocessing takes several hours. Only run if you need to modify the preprocessing pipeline.
+
+1. **Preprocessing** - Run [Y_Preprocessing_10sWindow_v03.ipynb](1D_CNN_Multilabel_V3/Y_Preprocessing_10sWindow_v03.ipynb):
+   - Downloads raw ECG data from Hugging Face
+   - Applies signal quality control and filtering
+   - Creates windowed samples with 5-class labels
+   - Outputs `ecg_data.h5` to `multilabel_v2/`
+
+2. **Upload to Hugging Face** (if preprocessing):
+   - Set `UPLOAD_TO_HF = True` in the preprocessing notebook
+   - Ensure the upload `repo_id` matches the download `HF_DATASET_REPO` in the training notebook
+
+3. **Training** - Run [Y_1d_CNN_5_Labels_v03.ipynb](1D_CNN_Multilabel_V3/Y_1d_CNN_5_Labels_v03.ipynb):
+   - Update `HF_DATASET_REPO` if you uploaded to a different repository
+   - Run all cells to train
+
+### Results
+
+- Model checkpoints saved to `checkpoints/`
+- Checkpoints auto-uploaded to [Neural-Network-Project/ECG-models](https://huggingface.co/Neural-Network-Project/ECG-models)
+- Evaluation metrics printed in notebook
+- ROC curves and confusion matrices generated
+
+---
+
 ## 1. Introduction
 
 This project develops a multi-label classification system to detect four pediatric heart diseases from 12-lead ECG signals:
@@ -365,25 +409,6 @@ Main dependencies:
 - `h5py >= 3.9`
 - `matplotlib >= 3.7`
 - `seaborn >= 0.12`
-
-### Running the Project
-
-1. **Data Preprocessing** (V3):
-   ```
-   Open: 1D_CNN_Multilabel_V3/Y_Preprocessing_10sWindow_v03.ipynb
-   Run all cells to create ecg_data.h5
-   ```
-
-2. **Model Training** (V3):
-   ```
-   Open: 1D_CNN_Multilabel_V3/Y_1d_CNN_5_Labels_v03.ipynb
-   Run all cells to train model with focal loss
-   ```
-
-3. **Results**:
-   - Model checkpoints saved to `checkpoints/`
-   - Evaluation metrics printed in notebook
-   - Plots generated for ROC curves and confusion matrices
 
 ### Google Colab
 
