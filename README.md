@@ -20,7 +20,7 @@ The preprocessed dataset is already available on Hugging Face. **Skip preprocess
    ```
 3. Run all cells to train the model with focal loss
 
-The notebook automatically downloads the preprocessed data (~1.5GB) from:
+The notebook automatically downloads the preprocessed data (~15GB) from:
 `https://huggingface.co/datasets/kiril-buga/ECG-database/tree/main/multilabel_v2`
 
 ### Option 2: Full Pipeline (Advanced)
@@ -33,7 +33,7 @@ The notebook automatically downloads the preprocessed data (~1.5GB) from:
    - Creates windowed samples with 5-class labels
    - Outputs `ecg_data.h5` to `multilabel_v2/`
 
-2. **Upload to Hugging Face** (if preprocessing):
+2. **Upload to Hugging Face or process localy** (if preprocessing):
    - Set `UPLOAD_TO_HF = True` in the preprocessing notebook
    - Ensure the upload `repo_id` matches the download `HF_DATASET_REPO` in the training notebook
 
