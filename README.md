@@ -2,8 +2,6 @@
 
 A deep learning project for automated detection of pediatric heart diseases from ECG signals using 1D Convolutional Neural Networks.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/kiril-buga/Neural-Network-Training-Project/blob/main/Deeplearning.ipynb)
-
 ---
 
 ## Quickstart Guide
