@@ -300,6 +300,52 @@ def focal_loss(gamma=2.0, alpha=0.25):
 
 ---
 
+### Additional Experiments: 19-Class Full-Length Classification
+
+Beyond the main 5-class system, we conducted exploratory experiments with expanded disease taxonomy and full-length ECG recordings:
+
+#### V3: Enhanced Architecture (19 Classes)
+**Notebook**: [Y_1d_CNN_19_Labels_FullLength_v03.ipynb](1D_CNN_Multilabel_19_Classes_V3/Y_1d_CNN_19_Labels_FullLength_v03.ipynb)
+
+**Configuration**:
+- Full-length variable recordings (5-120 seconds, no windowing)
+- 19 disease classes (18 cardiac conditions + Healthy)
+- Enhanced architecture with Squeeze-Excitation blocks and temporal attention
+- Focal loss for extreme class imbalance (some classes <20 samples)
+- Lazy HDF5 loading for memory efficiency
+
+**Key Findings**:
+- Successfully processed full-length ECGs without fixed windowing
+- SE blocks and attention mechanisms added model complexity
+- Severe class imbalance (18-11,155 samples per class) proved challenging
+- Memory-optimized pipeline reduced RAM usage from ~18GB to ~0.5GB
+
+#### V4: Simplified Architecture (19 Classes)
+**Notebook**: [Y_1d_CNN_19_Labels_FullLength_v04.ipynb](1D_CNN_Multilabel_19_Classes_V4/Y_1d_CNN_19_Labels_FullLength_v04.ipynb)
+
+**Configuration**:
+- Same 19-class, full-length setup as V3
+- Simplified architecture (128→256→256 filters, no SE/attention/residual blocks)
+- Balanced sampling (all classes undersampled/oversampled to ~100 samples)
+- Augmentation disabled for faster iteration (2.5-3x speedup)
+- Automatic checkpointing to HuggingFace Hub
+
+**Design Rationale**:
+- Simpler architectures often generalize better on small, imbalanced medical datasets
+- Proper data balancing more impactful than complex model architecture
+- Training speed prioritized for rapid experimentation (12-15 min/epoch vs 37 min)
+
+**Outcome**:
+These experiments validated that for highly imbalanced medical data:
+1. Data balancing strategies are critical (proper undersampling/oversampling)
+2. Simpler architectures can outperform complex ones with limited data
+3. Full-length ECG processing is feasible with lazy loading techniques
+4. Focal loss alone insufficient without proper class balancing
+
+**Note**: These 19-class experiments are exploratory and not yet production-ready. The 5-class system (V3 focal loss) remains the primary deliverable with validated clinical performance.
+
+---
+
 ## 5. Conclusion
 
 ### Summary of Findings
@@ -376,17 +422,23 @@ Neural-Network-Training-Project/
 ├── requirements.txt                   # Python dependencies
 ├── LICENSE                           # Project license
 │
-├── 1D_CNN_Multilabel_V1/            # Iteration 1: Baseline
+├── 1D_CNN_Multilabel_V1/            # Iteration 1: Baseline (5 classes)
 │   ├── DataExploration.ipynb        # Dataset analysis and statistics
 │   └── Y_1d_CNN_5_Labels_v01.ipynb  # Training notebook (baseline)
 │
-├── 1D_CNN_Multilabel_V2/            # Iteration 2: SMOTE
+├── 1D_CNN_Multilabel_V2/            # Iteration 2: SMOTE (5 classes)
 │   ├── Y_Preprocessing_10sWindow_SMOTE_4Classes_v02.ipynb
 │   └── Y_1d_CNN_5_Labels_v02.ipynb  # Training notebook (SMOTE + thresholds)
 │
-└── 1D_CNN_Multilabel_V3/            # Iteration 3: Focal Loss (current)
-    ├── Y_Preprocessing_10sWindow_v03.ipynb  # Windowing preprocessing
-    └── Y_1d_CNN_5_Labels_v03.ipynb          # Training notebook (focal loss)
+├── 1D_CNN_Multilabel_V3/            # Iteration 3: Focal Loss (5 classes, current)
+│   ├── Y_Preprocessing_10sWindow_v03.ipynb  # Windowing preprocessing
+│   └── Y_1d_CNN_5_Labels_v03.ipynb          # Training notebook (focal loss)
+│
+├── 1D_CNN_Multilabel_19_Classes_V3/ # Extended: Enhanced arch (19 classes)
+│   └── Y_1d_CNN_19_Labels_FullLength_v03.ipynb  # SE blocks + attention
+│
+└── 1D_CNN_Multilabel_19_Classes_V4/ # Extended: Simplified arch (19 classes)
+    └── Y_1d_CNN_19_Labels_FullLength_v04.ipynb  # Balanced sampling
 ```
 
 ---
@@ -446,6 +498,6 @@ This project is licensed under the terms specified in the [LICENSE](LICENSE) fil
 
 ---
 
-**Last Updated**: 2025-01-28
-**Current Version**: V3 (Focal Loss + Custom Thresholds)
+**Last Updated**: 2025-12-08
+**Current Version**: V3 (Focal Loss + Custom Thresholds) | Extended Experiments: V3/V4 (19 classes)
 **Status**: Active Development
