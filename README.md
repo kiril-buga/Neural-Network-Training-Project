@@ -388,7 +388,7 @@ This project demonstrates an iterative approach to handling severe class imbalan
 
 **Data Enhancements**:
 - Collect more minority class samples (especially Kawasaki, Cardiomyopathy)
-- Implement data augmentation (time-warping, noise injection)
+- Integrate data augmentation (time-warping, noise injection), following the approach used in the 19-class experiments.
 - Include patient metadata (age, gender, clinical history)
 
 **Training Strategies**:
