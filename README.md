@@ -310,13 +310,11 @@ Beyond the main 5-class system, we conducted exploratory experiments with expand
 **Configuration**:
 - Full-length variable recordings (5-120 seconds, no windowing)
 - 19 disease classes (18 cardiac conditions + Healthy)
-- Enhanced architecture with Squeeze-Excitation blocks and temporal attention
 - Focal loss for extreme class imbalance (some classes <20 samples)
 - Lazy HDF5 loading for memory efficiency
 
 **Key Findings**:
 - Successfully processed full-length ECGs without fixed windowing
-- SE blocks and attention mechanisms added model complexity
 - Severe class imbalance (18-11,155 samples per class) proved challenging
 - Memory-optimized pipeline reduced RAM usage from ~18GB to ~0.5GB
 
@@ -325,7 +323,7 @@ Beyond the main 5-class system, we conducted exploratory experiments with expand
 
 **Configuration**:
 - Same 19-class, full-length setup as V3
-- Simplified architecture (128→256→256 filters, no SE/attention/residual blocks)
+- Simplified architecture (128→256→256 filters)
 - Balanced sampling (all classes undersampled/oversampled to ~100 samples)
 - Augmentation disabled for faster iteration (2.5-3x speedup)
 - Automatic checkpointing to HuggingFace Hub
